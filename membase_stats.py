@@ -47,7 +47,7 @@ class MembaseStats():
                              "ep_expired": {"description": "Number of times an item was expired", "unit": "", "type": "cumulative", "name": "expired_items"},
                              }
     
-    data_file_name = "/usr/share/appfirst/plugins/membase_stats_data"
+    data_file_name = "/tmp/membase_stats_data"
     prev_stats = {}
     d_stats = {}
     list = False
@@ -83,7 +83,7 @@ class MembaseStats():
         print "usage:\n\tmembase_stats.py [-l|--list|-h|--help]\n\tmembase_stats.py metric|all\n\t\tWhere metric is one of the metrics shown with a -l|--list"
     
     def get_status(self):
-        str_stats = subprocess.Popen("/opt/membase/bin/ep_engine/management/stats 127.0.0.1:11210 all",
+        str_stats = subprocess.Popen("/opt/membase/bin/mbstats 127.0.0.1:11210 all",
                                      shell = True, stdout=subprocess.PIPE).communicate()[0]
         stats = str_stats.split('\n')
         for i in range(len(stats) - 1):
